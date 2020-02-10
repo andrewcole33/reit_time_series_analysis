@@ -123,27 +123,27 @@ def arima_endog(df,observed,parameters, seasonal_parameters):
     plt.tight_layout()
     plt.show()
     
-    print('--------------------------------------------------------------------------------------------------------------------------------------------------------------')
-    print(' ')
-    print('Future Forecast: ')
-    print(' ')
+    # print('--------------------------------------------------------------------------------------------------------------------------------------------------------------')
+    # print(' ')
+    # print('Future Forecast: ')
+    # print(' ')
     
     # Plot Future Forecast
-    prediction = results.get_forecast(steps = 36)
-    pred_conf = prediction.conf_int()
+    # prediction = results.get_forecast(steps = 12)
+    # pred_conf = prediction.conf_int()
     
-    ax = df['2011-01-01':].plot(label = 'observed', figsize = (17,5))
-    prediction.predicted_mean.plot(ax=ax, label = 'Forecast')
-    ax.fill_between(pred_conf.index,
-                    pred_conf.iloc[:, 0],
-                    pred_conf.iloc[:, 1],
-                    color = 'purple', alpha = .20)
+    # ax = df['2011-01-01':].plot(label = 'observed', figsize = (17,5))
+    # prediction.predicted_mean.plot(ax=ax, label = 'Forecast')
+    # ax.fill_between(pred_conf.index,
+    #                pred_conf.iloc[:, 0],
+    #                pred_conf.iloc[:, 1],
+    #                color = 'purple', alpha = .20)
     
-    ax.set_xlabel('Year')
-    ax.set_ylabel('Mid Price')
-    plt.title(f"Mid Price Forecast (3-Years)")
-    plt.legend(loc = 'upper left')
-    plt.show()
+    # ax.set_xlabel('Year')
+    # ax.set_ylabel('Mid Price')
+    # plt.title(f"Mid Price Forecast (3-Years)")
+    # plt.legend(loc = 'upper left')
+    # plt.show()
     
     
     
@@ -191,7 +191,7 @@ def arima_exog(df, parameters, seasonal_parameters, exog_train):
     plt.tight_layout()
     plt.show()
     
-    
+     
     
     
     
