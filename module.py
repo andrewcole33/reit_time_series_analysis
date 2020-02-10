@@ -81,7 +81,7 @@ def dickey_fuller(df):
         
         
         
-def arima_endog(df,parameters, seasonal_parameters):
+def arima_endog(df,observed,parameters, seasonal_parameters):
     arima_model = sm.tsa.statespace.SARIMAX(df,
                                             order = parameters,
                                             seasonal_order = seasonal_parameters,
@@ -100,11 +100,11 @@ def arima_endog(df,parameters, seasonal_parameters):
     print('Predictions vs. Observed: ')
     print(' ')
     
-    predictions = results.get_prediction(start = pd.to_datetime('2015-01-01'), end = pd.to_datetime('2020-01-01'), dynamic = False)
+    predictions = results.get_prediction(start = pd.to_datetime('2016-01-01'), end = pd.to_datetime('2020-01-01'), dynamic = False)
     pred_conf = predictions.conf_int()
     
     #Plot observed values
-    ax = df['2011-01-01':].plot(label = 'observed', figsize = (17,5))
+    ax = observed['2011-01-01':].plot(label = 'observed', figsize = (17,5))
     
     #Plot predicted values
     predictions.predicted_mean.plot(ax = ax, label = 'One Step Ahead Forecast', alpha = .9, color = 'darkblue', style = '--')
