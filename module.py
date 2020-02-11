@@ -104,7 +104,7 @@ def arima_endog(df,observed,parameters, seasonal_parameters):
     pred_conf = predictions.conf_int()
     
     #Plot observed values
-    ax = observed['2011-01-01':].plot(label = 'observed', figsize = (17,5))
+    ax = observed['2000-01-01':].plot(label = 'observed', figsize = (17,5))
     
     #Plot predicted values
     predictions.predicted_mean.plot(ax = ax, label = 'One Step Ahead Forecast', alpha = .9, color = 'darkblue', style = '--')
