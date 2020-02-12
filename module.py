@@ -1,14 +1,7 @@
-from module import decomposition
-from module import dickey_fuller
-from module import arima_endog
-from module import arima_exog
-from module import rmse_cv
-from module import lasso_reg
-
-
 import pandas_datareader.data as web
 from datetime import datetime
 import matplotlib.pyplot as plt
+import matplotlib
 import pandas as pd
 import numpy as np
 from numpy import hstack
@@ -23,12 +16,10 @@ from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.graphics.tsaplots import plot_pacf
 from statsmodels.graphics.tsaplots import plot_acf
-import pmdarima as pm
-from pmdarima import model_selection
 
-%matplotlib inline
-%load_ext autoreload
-%autoreload
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import LassoCV
+from sklearn.model_selection import cross_val_score
 
 
 def decomposition(df):
@@ -183,10 +174,6 @@ def lasso_reg(dataframe):
     print('')
     
     coef = pd.Series(model_lasso.coef_, index = dataframe.columns)
-    
-    print(coef)
-    print(' ')
-    print("Lasso picked " + str(sum(coef != 0)) + " variables and eliminated the other " + str(sum(coef == 0)) + " variables")
     
     imp_coef = pd.concat([coef.sort_values().head(26),
                           coef.sort_values().tail(26)])
