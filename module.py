@@ -1,25 +1,20 @@
-import pandas_datareader.data as web
-from fredapi import Fred
+from module import decomposition
+from module import dickey_fuller
+from module import arima_endog
+from module import arima_exog
+from module import rmse_cv
+from module import lasso_reg
 
-import matplotlib
+
+import pandas_datareader.data as web
+from datetime import datetime
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from numpy import hstack
-from scipy import stats
-from datetime import datetime
-
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import Lasso, LassoCV, ElasticNet, LassoLarsCV
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import cross_val_score
-from sklearn.feature_selection import RFE
-from sklearn.svm import SVR
-
 import warnings
 import os
-
+from fredapi import Fred
 warnings.filterwarnings('ignore')
 
 import itertools
@@ -31,17 +26,12 @@ from statsmodels.graphics.tsaplots import plot_acf
 import pmdarima as pm
 from pmdarima import model_selection
 
-from keras.models import Sequential
-from keras.layers import LSTM
-from keras.layers import Dense
-from keras.layers import Flatten
-from keras.layers import TimeDistributed
-from keras.layers.convolutional import Conv1D
-from keras.layers.convolutional import MaxPooling1D
+%matplotlib inline
+%load_ext autoreload
+%autoreload
 
 
 def decomposition(df):
-    for key in df:
         ts = df
         decomposition = seasonal_decompose(np.log(ts))
         trend = decomposition.trend
@@ -53,7 +43,6 @@ def decomposition(df):
         plt.subplot(411)
         plt.plot(np.log(ts), label='Original', color="blue")
         plt.legend(loc='best')
-        plt.title(f'{key}')
         plt.subplot(412)
         plt.plot(trend, label='Trend', color="blue")
         plt.legend(loc='best')
@@ -104,7 +93,7 @@ def arima_endog(df,observed,parameters, seasonal_parameters):
     pred_conf = predictions.conf_int()
     
     #Plot observed values
-    ax = observed['2000-01-01':].plot(label = 'observed', figsize = (17,5))
+    ax = observed['2000-01-01':].plot(label = 'observed', figsize = (20,5))
     
     #Plot predicted values
     predictions.predicted_mean.plot(ax = ax, label = 'One Step Ahead Forecast', alpha = .9, color = 'darkblue', style = '--')
@@ -122,34 +111,10 @@ def arima_endog(df,observed,parameters, seasonal_parameters):
     plt.title('Mid Price Over Time (Observed & Model Predicted)')
     plt.tight_layout()
     plt.show()
+
     
-    # print('--------------------------------------------------------------------------------------------------------------------------------------------------------------')
-    # print(' ')
-    # print('Future Forecast: ')
-    # print(' ')
-    
-    # Plot Future Forecast
-    # prediction = results.get_forecast(steps = 12)
-    # pred_conf = prediction.conf_int()
-    
-    # ax = df['2011-01-01':].plot(label = 'observed', figsize = (17,5))
-    # prediction.predicted_mean.plot(ax=ax, label = 'Forecast')
-    # ax.fill_between(pred_conf.index,
-    #                pred_conf.iloc[:, 0],
-    #                pred_conf.iloc[:, 1],
-    #                color = 'purple', alpha = .20)
-    
-    # ax.set_xlabel('Year')
-    # ax.set_ylabel('Mid Price')
-    # plt.title(f"Mid Price Forecast (3-Years)")
-    # plt.legend(loc = 'upper left')
-    # plt.show()
-    
-    
-    
-    
-def arima_exog(df, parameters, seasonal_parameters, exog_train):
-    arima_model = sm.tsa.statespace.SARIMAX(df,
+def arima_exog(df_train, df, parameters, seasonal_parameters, exog_train, exog_test):
+    arima_model = sm.tsa.statespace.SARIMAX(df_train,
                                             exog = exog_train,
                                             order = parameters,
                                             seasonal_order = seasonal_parameters,
@@ -168,11 +133,15 @@ def arima_exog(df, parameters, seasonal_parameters, exog_train):
     print('Predictions vs. Observed: ')
     print(' ')
     
-    predictions = results.get_prediction(start = pd.to_datetime('2015-01-01'), end = pd.to_datetime('2020-01-01'), dynamic = False, exog = exog_train)
+    predictions = results.get_prediction(
+                                         start = pd.to_datetime('2015-01-01'), 
+                                         end = pd.to_datetime('2020-01-01'), 
+                                         dynamic = False, 
+                                         exog = exog_test)
     pred_conf = predictions.conf_int()
     
     #Plot observed values
-    ax = df['2011-01-01':].plot(label = 'observed', figsize = (17,5))
+    ax = df['2000-01-01':].plot(label = 'observed', figsize = (17,5))
     
     #Plot predicted values
     predictions.predicted_mean.plot(ax = ax, label = 'One Step Ahead Forecast', alpha = .9, color = 'darkblue', style = '--')
@@ -191,16 +160,11 @@ def arima_exog(df, parameters, seasonal_parameters, exog_train):
     plt.tight_layout()
     plt.show()
     
-     
-    
-    
+
     
 def rmse_cv(model, X, y):
     rmse= np.sqrt(-cross_val_score(model, X, y, scoring="neg_mean_squared_error", cv = 5))
     return(rmse)
-
-
-
 
 
 
@@ -235,4 +199,3 @@ def lasso_reg(dataframe):
     preds = pd.DataFrame({"preds":model_lasso.predict(dataframe), "true":target})
     preds["residuals"] = preds["true"] - preds["preds"]
     preds.plot(x = "preds", y = "residuals",kind = "scatter")
-    
