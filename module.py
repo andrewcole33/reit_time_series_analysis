@@ -84,6 +84,10 @@ def arima_endog(df,observed,parameters, seasonal_parameters):
     pred_conf = predictions.conf_int()
     
     #Plot observed values
+    font = {'family':'sans-serif',
+        'weight':'bold',
+        'size':12}
+    matplotlib.rc('font', **font)
     ax = observed['2000-01-01':].plot(label = 'observed', figsize = (20,5))
     
     #Plot predicted values
