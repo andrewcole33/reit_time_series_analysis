@@ -2,7 +2,13 @@
 ### <center>Data Scientist: Andrew Cole<center/>
 
 
+
+
+
 - See FR_TS.ipynb for detailed notebook walkthrough
+
+
+
 
 
 #### <ins>Background Information<ins/>
@@ -17,3 +23,22 @@ The REIT historical data of 8 different REITs (endogenous) were obtained through
 Next, the exogenous data was gathered from FRED API(Federal Reserve Economic Database). Exogenous variables were selected from six different Money & Banking categories. 55 features were selected (this number is largely due to time constraints of the project, ideally a significantly larger amount of exogenous features would be included) and then a LASSO regression was performed for important feature selection **respective to each individual REIT**.
 
 With the exogenous features now selected for each respective REIT, another SARIMAX model is executed and fit with predictions using the model parameters already obtained previously and the new exogenous variables included.
+
+### <ins>Included in this Repository:<ins/>
+- 8 REIT Time Series Models:
+    - AMT_TS.ipynb
+    - ELS_TS.ipynb
+    - PLD_TS.ipynb
+    - FR_TS.ipynb (**Contains Technical Summary**)
+    - MAA_TS.ipynb
+    - SUI_TS.ipynb
+    - BXMT_TS.ipynb
+    - RHP_TS.ipynb
+
+
+- EDA.ipynb
+  - Data gathering and exploration of exogenous variables
+
+
+- module.py
+  - Python module containing functions for cleaning, manipulating, and execution of SARIMAX models
