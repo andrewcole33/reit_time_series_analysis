@@ -20,6 +20,7 @@ from statsmodels.graphics.tsaplots import plot_acf
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LassoCV
 from sklearn.model_selection import cross_val_score
+from sklearn.metrics import mean_squared_error
 
 
 def decomposition(df):
@@ -190,3 +191,7 @@ def lasso_reg(dataframe):
     preds = pd.DataFrame({"preds":model_lasso.predict(dataframe), "true":target})
     preds["residuals"] = preds["true"] - preds["preds"]
     preds.plot(x = "preds", y = "residuals",kind = "scatter")
+    
+    
+    
+    
