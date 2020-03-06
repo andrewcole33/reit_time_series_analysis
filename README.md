@@ -24,6 +24,8 @@ Next, the exogenous data was gathered from FRED API(Federal Reserve Economic Dat
 
 With the exogenous features now selected for each respective REIT, another SARIMAX model is executed and fit with predictions using the model parameters already obtained previously and the new exogenous variables included.
 
+In an attempt to scale up the robustness of the model and increase model accuracy, a GRU RNN (Gated Recurrent Unit Recursive Neural Network) model was also built. This model requires significantly more computational power to execute more powerful calculations. For this reason, this notebook was hosted through Google Cloud's web services so that I could have access to the computational power of it's GPUs. This model will be designed to learn which statistical events in the data history are important, and unlike the SARIMAX models, it can continuously re-compute according to  what it deems to be the most import events while "forgetting" what is unecessary. This model performs well in the training set however it severely suffers from a lack of data necessary for full efficiency of the model. For this reason, this GRU model will remain purely as a practice model and is not to be implemented in the business world.
+
 ### <ins>Included in this Repository:<ins/>
 - 8 REIT Time Series Models:
     - AMT_TS.ipynb
@@ -34,6 +36,8 @@ With the exogenous features now selected for each respective REIT, another SARIM
     - SUI_TS.ipynb
     - BXMT_TS.ipynb
     - RHP_TS.ipynb
+    
+    - GRU_model.ipynb
 
 
 - EDA.ipynb
