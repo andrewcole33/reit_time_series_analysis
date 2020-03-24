@@ -5,8 +5,9 @@
 
 
 
-- See FR_TS.ipynb for detailed notebook walkthrough
-- Please click below for this notebook's blog post: https://medium.com/p/time-series-analysis-of-a-reit-portfolio-6ec082f9fe3c?source=email-cb2c8eb9bc8--writer.postDistributed&sk=3475b07f3f1e06913c1197dedb66c455
+- See FR_TS.ipynb for detailed notebook with commentary
+
+- Please click for a blog post which walks through the entire project: https://medium.com/p/time-series-analysis-of-a-reit-portfolio-6ec082f9fe3c?source=email-cb2c8eb9bc8--writer.postDistributed&sk=3475b07f3f1e06913c1197dedb66c455
 
 
 
