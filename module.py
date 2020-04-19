@@ -24,6 +24,9 @@ from sklearn.metrics import mean_squared_error
 
 
 def decomposition(df):
+"""
+This function will perform decomposition of a passed time series indexed dataframe. It will take a log of the time series data, then decompose to account for trend, seasonality, and residual distribituion.
+"""
         ts = df
         decomposition = seasonal_decompose(np.log(ts))
         trend = decomposition.trend

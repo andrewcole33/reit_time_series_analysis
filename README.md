@@ -5,13 +5,12 @@
 
 
 
-- See FR_TS.ipynb for detailed notebook with commentary
-
-- Please click for a blog post which walks through the entire project: https://medium.com/p/time-series-analysis-of-a-reit-portfolio-6ec082f9fe3c?source=email-cb2c8eb9bc8--writer.postDistributed&sk=3475b07f3f1e06913c1197dedb66c455
+- See FR_TS.ipynb for detailed notebook walkthrough
 
 
 
 
+--
 #### <ins>Background Information<ins/>
 Real Estate Investment Trusts (REIT) act as a unique and valuable financial instrument for all types of investors. As the name inherently states, they provide investment opportunity into all things real estate. There are two types of REITs: Equity & Mortgage (mREIT). An equity REIT can represent shared "ownership" of a physical property space, while shares of an mREIT equate to owning a share of the *financing* of a mortgage. They provide liquid & low cost access to historically high returns when compared with other asset classes such as traditional stocks, bonds, or treasury classes. REITs are tax exempt earnings where the operating party is required by law to pay out 90% of their income to investors via dividends.
 
