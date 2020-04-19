@@ -53,6 +53,9 @@ This function will perform decomposition of a passed time series indexed datafra
         
 
 def dickey_fuller(df):
+"""
+Performs a dickey-fuller statistical test to verify that a time series is stationary and all trend has been removed. 
+"""
     dftest = adfuller(df['mid'])
     dfoutput = pd.Series(dftest[0:4], index = ['Test Stat', 'p-value', '# lags used', '# Observations Used'])
     dftest_pvalue = dftest[1]
